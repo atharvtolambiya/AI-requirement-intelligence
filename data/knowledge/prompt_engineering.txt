@@ -1,0 +1,189 @@
+# Prompt Engineering Best Practices Knowledge Base
+# This file is ingested into ChromaDB for RAG retrieval
+# Each section separated by "---" is treated as a document chunk
+
+TITLE: Core Prompt Engineering Principles
+CATEGORY: fundamentals
+---
+Effective prompts have five essential qualities: clarity, specificity, context, constraints, and format guidance.
+Clarity means every instruction is unambiguous and can only be interpreted one way.
+Specificity replaces vague terms like "good", "fast", or "detailed" with measurable, concrete alternatives.
+Context provides the LLM with the background knowledge needed to produce accurate responses.
+Constraints define boundaries of what the LLM should and should not include.
+Format guidance tells the LLM exactly how to structure its output.
+---
+
+TITLE: Zero-Shot Prompting Best Practices
+CATEGORY: prompt_styles
+---
+Zero-shot prompting works best for well-defined tasks where the model has strong prior knowledge.
+Structure: [Role/Persona] + [Clear Task] + [Context] + [Output Format] + [Constraints].
+Always specify output format explicitly: length, structure, tone, and any excluded content.
+Add negative constraints: "Do not include X", "Avoid Y", "Only focus on Z".
+End with a verification instruction: "Review your response before submitting."
+Zero-shot fails when tasks are highly specialized, require specific formats, or involve ambiguous terminology.
+---
+
+TITLE: Chain-of-Thought Prompting Techniques
+CATEGORY: prompt_styles
+---
+Chain-of-Thought (CoT) prompting dramatically improves accuracy on multi-step reasoning tasks.
+Trigger phrase: "Think through this step by step:" or "Let's approach this systematically:"
+Structure each step with clear transitions: "First... Then... Next... Finally..."
+For complex problems, explicitly list the reasoning steps before asking for the final answer.
+Use intermediate checkpoints: "Before proceeding to step 3, verify step 2 is complete."
+CoT is most effective for: math problems, logical reasoning, code debugging, planning tasks.
+Always end with: "Synthesize your step-by-step analysis into a final, clear answer."
+---
+
+TITLE: Few-Shot Prompting Guidelines
+CATEGORY: prompt_styles
+---
+Few-shot prompting improves output consistency by showing the model the expected pattern.
+Use 2-3 examples minimum; more than 5 examples rarely improves performance significantly.
+Examples must be high quality, diverse, and representative of the expected output format.
+Format: "Input: [example input]\nOutput: [example output]\n---"
+Choose examples that cover edge cases and common patterns in your use case.
+Ensure examples are consistent in format, tone, length, and level of detail.
+Label inputs and outputs clearly: INPUT/OUTPUT, Q/A, EXAMPLE/RESULT.
+The final example should match the difficulty and type of the actual query.
+---
+
+TITLE: Role-Based Prompting Effectiveness
+CATEGORY: prompt_styles
+---
+Assigning an expert role significantly improves output quality for domain-specific tasks.
+Effective role formula: "You are a [specific role] with [X years] of experience in [specific area]."
+Add expertise context: "You specialize in [specific specialization] and have worked with [technologies/methods]."
+Connect role to task: "Using your expertise in [domain], help me [specific task]."
+Roles work best for: technical writing, code review, business analysis, research, and creative tasks.
+Avoid overly generic roles like "expert" or "professional" — be specific about the specialization.
+Combine with output constraints: "As a [role], provide your response in the format expected by [audience]."
+---
+
+TITLE: Structured Prompt Design Patterns
+CATEGORY: prompt_styles
+---
+Structured prompts use markdown formatting to organize complex multi-part instructions.
+Standard sections: ## Context, ## Task, ## Requirements, ## Output Format, ## Constraints, ## Examples.
+Use numbered lists for sequential steps and bullet points for unordered requirements.
+Bold critical instructions to draw LLM attention: **Important:**, **Required:**, **Do not:**
+Structured prompts reduce hallucination by making every requirement explicit and visible.
+Keep each section focused — avoid mixing task description with output format instructions.
+Add a ## Quality Checklist section for tasks requiring self-review before output.
+---
+
+TITLE: Hallucination Prevention Strategies
+CATEGORY: quality
+---
+Hallucination occurs when LLMs generate plausible-sounding but incorrect or fabricated information.
+Prevention strategy 1 - Scope Constraints: Explicitly limit the LLM to provided information.
+"Base your answer ONLY on the information provided. Do not use outside knowledge."
+Prevention strategy 2 - Uncertainty Handling: Instruct the model to admit uncertainty.
+"If you are not certain about any fact, explicitly state 'I am not certain about this.'"
+Prevention strategy 3 - Source Grounding: Ask for evidence-based responses.
+"For each claim you make, indicate whether it is from the provided context or general knowledge."
+Prevention strategy 4 - Constraint-based Prompting: Use hard boundaries.
+"Only recommend technologies from this approved list: [list]. Do not suggest alternatives."
+Prevention strategy 5 - Self-verification: Add review step.
+"Before responding, verify that each statement in your response is factually accurate."
+---
+
+TITLE: Output Format Specification Techniques
+CATEGORY: quality
+---
+Explicit output format specification dramatically improves consistency and usability.
+For JSON output: Provide the exact schema with field names and value types.
+"Respond ONLY with valid JSON matching this schema: {field1: string, field2: number[]}"
+For markdown: Specify heading levels, list formats, and required sections.
+For length control: Use concrete limits. "Respond in exactly 3 paragraphs" not "be concise."
+For structured data: Provide a template. "Fill in this template exactly: Title: [value]\nDate: [value]"
+Always add: "Do not include any text outside the specified format."
+For code: Specify language, style guide, and whether to include comments or tests.
+---
+
+TITLE: Context Window Optimization
+CATEGORY: performance
+---
+Effective use of the context window is critical for long-form prompts and RAG applications.
+Place the most important instructions at the beginning AND end of long prompts (primacy + recency effect).
+Compress context: summarize long documents rather than including raw text when possible.
+For RAG: Include only the most relevant 2-3 retrieved chunks, not all retrieved results.
+Remove redundant information — every token should add value to the prompt.
+Use delimiters to separate context from instructions: ### or --- or XML tags <context></context>.
+For very long contexts, add a summary at the end: "Based on the context above, [task instruction]."
+---
+
+TITLE: Iterative Prompt Refinement Process
+CATEGORY: refinement
+---
+Prompt refinement is an iterative process that improves quality through systematic feedback cycles.
+Refinement cycle: Generate → Evaluate → Identify weaknesses → Apply specific improvements → Re-evaluate.
+Focus one refinement iteration on one specific dimension: clarity, specificity, or completeness.
+Common refinement improvements: Add missing constraints, replace vague terms, add output format, add examples.
+Measure improvement: Score prompts before and after each refinement iteration.
+Stop refinement when: Score exceeds 80/100, or three consecutive iterations show <3 point improvement.
+Document what changed between iterations to build a library of effective prompt patterns.
+---
+
+TITLE: Domain-Specific Prompting: Software Development
+CATEGORY: domain_specific
+---
+Software development prompts need: language/framework specification, coding standards, error handling requirements.
+Always specify: programming language, version, framework, and coding style guide.
+Include: "Follow [language] best practices including proper error handling, input validation, and logging."
+For code generation: "Generate production-ready code with comments, type hints, and unit test stubs."
+Specify output format: "Provide code in a markdown code block with the language specified."
+Add review step: "After generating code, review for security vulnerabilities and edge cases."
+For debugging: "Analyze this code for bugs. Explain the root cause and provide a corrected version."
+---
+
+TITLE: Domain-Specific Prompting: Data Science & ML
+CATEGORY: domain_specific
+---
+Data science prompts need: dataset description, target metrics, constraints on methods.
+Always specify: data characteristics (size, types, missing values), evaluation metrics, computational constraints.
+Include: "Use only these libraries: [list]. Ensure reproducibility by setting random seeds."
+For analysis: "Provide statistical justification for each conclusion. Flag any assumptions made."
+For ML models: "Explain model selection rationale. Include train/test split strategy and evaluation approach."
+Add uncertainty: "Clearly state the limitations of this analysis and conditions where conclusions may not hold."
+For visualization: "Describe the chart type, axes, labels, and what insight it should convey."
+---
+
+TITLE: Prompt Anti-Patterns to Avoid
+CATEGORY: quality
+---
+Anti-pattern 1 - Vague Instructions: "Make it good", "Be thorough", "Do it properly" — use specific criteria.
+Anti-pattern 2 - Missing Context: Assuming the LLM knows your codebase, team, or project specifics.
+Anti-pattern 3 - Contradictory Instructions: "Be concise but include all details" — pick one.
+Anti-pattern 4 - No Output Format: Leaving output format to the LLM always produces inconsistent results.
+Anti-pattern 5 - Infinite Scope: "Help me with everything related to X" — scope is essential.
+Anti-pattern 6 - Stacked Questions: Asking 5+ questions in one prompt — split into focused prompts.
+Anti-pattern 7 - No Negative Constraints: Only saying what to do, never what NOT to do.
+Anti-pattern 8 - Over-Engineering: Adding unnecessary complexity. Start simple, add complexity only if needed.
+---
+
+TITLE: Measuring Prompt Quality
+CATEGORY: quality
+---
+Prompt quality can be measured across five key dimensions with equal importance.
+Dimension 1 - Clarity (0-10): Can the prompt be interpreted in only one way?
+Dimension 2 - Specificity (0-10): Are all requirements concrete and measurable?
+Dimension 3 - Completeness (0-10): Is all necessary context and background included?
+Dimension 4 - Actionability (0-10): Can an LLM immediately produce high-quality output?
+Dimension 5 - Hallucination Reduction (0-10): Does the prompt minimize fabrication risk?
+Overall score = weighted average. Production threshold: 70/100 minimum, 80/100 recommended.
+Scoring below 60 indicates fundamental structural issues requiring rework, not refinement.
+---
+
+TITLE: RAG-Enhanced Prompt Generation
+CATEGORY: advanced
+---
+Retrieval-Augmented Generation (RAG) improves prompt quality by grounding generation in proven knowledge.
+RAG retrieval strategy: embed the user requirement, retrieve top-K relevant knowledge chunks.
+Retrieved knowledge should cover: domain best practices, proven patterns, anti-patterns to avoid.
+Inject retrieved context at prompt start: "Using these proven best practices: [context], generate..."
+RAG improves specificity by referencing concrete techniques rather than generic advice.
+Keep retrieved chunks focused: 3-5 short, highly relevant chunks outperform many long ones.
+After generation, verify the output incorporates the retrieved knowledge — not just paraphrases it.
+---
