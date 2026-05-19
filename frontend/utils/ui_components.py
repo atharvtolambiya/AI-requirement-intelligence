@@ -670,7 +670,7 @@ def render_sidebar_status() -> None:
 
         st.markdown("**🗺️ Navigation**")
         st.page_link("app.py",                        label="🏠 Home")
-        st.page_link("pages/1_🔍_Analyzer.py",        label="🔍 Analyzer")
+        st.page_link("pages/0_🧠_Vision.py",          label="🧠 Vision Clarifier")
         st.page_link("pages/2_⚡_Optimizer.py",       label="⚡ Optimizer")
         st.page_link("pages/3_✨_Refiner.py",         label="✨ Refiner")
         st.page_link("pages/4_📚_History.py",         label="📚 History")

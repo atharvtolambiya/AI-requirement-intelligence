@@ -31,7 +31,6 @@ with st.sidebar:
     st.markdown("**🗺️ Navigation**")
     st.page_link("app.py",                          label="🏠 Home")
     st.page_link("pages/0_🧠_Vision.py",            label="🧠 Vision Clarifier")
-    st.page_link("pages/1_🔍_Analyzer.py",          label="🔍 Analyzer")
     st.page_link("pages/2_⚡_Optimizer.py",         label="⚡ Optimizer")
     st.page_link("pages/3_✨_Refiner.py",           label="✨ Refiner")
     st.page_link("pages/4_📚_History.py",           label="📚 History")
@@ -91,22 +90,20 @@ st.divider()
 # ── New Flow ───────────────────────────────────────────────────────
 st.subheader("🚀 Recommended Flow")
 
-c1, c2, c3, c4, c5 = st.columns(5)
+c1, c2, c3, c4 = st.columns(4)
 cards = [
     ("🧠", "#f8e8ff", "Step 1\nVision Clarifier",
      "Answer targeted questions → extract semantic anchors"),
-    ("🔍", "#e8f4fd", "Step 2\nAnalyzer",
-     "Intent analysis + gap detection"),
-    ("⚡", "#e8f8e8", "Step 3\nOptimizer",
+    ("⚡", "#e8f8e8", "Step 2\nOptimizer",
      "9-stage semantic pipeline → vision-aligned prompts"),
-    ("✨", "#fef9e8", "Step 4\nRefiner",
+    ("✨", "#fef9e8", "Step 3\nRefiner",
      "RAG-powered iterative improvement"),
-    ("📚", "#fde8ff", "Step 5\nHistory",
+    ("📚", "#fde8ff", "Step 4\nHistory",
      "Browse sessions + analytics"),
 ]
 
 for col, (icon, bg, title, desc) in zip(
-    [c1, c2, c3, c4, c5], cards
+    [c1, c2, c3, c4], cards
 ):
     with col:
         lines = title.split("\n")
