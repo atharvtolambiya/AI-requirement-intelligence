@@ -3,7 +3,7 @@
 > **An AI-powered Semantic Requirement Cognition and Operational Architecture Synthesis Platform** — designed to preserve conceptual intent, prevent semantic collapse, and synthesize domain-aware intelligence architectures from vague or incomplete AI/product ideas.
 
 <p align="center">
-  <img src="screenshots/vision_classifier.png" alt="Vision Clarifier" width="100%"/>
+  <img src="screenshots/vision_classfier.png" alt="Vision Clarifier" width="100%"/>
 </p>
 
 ---
@@ -445,7 +445,7 @@ Differentiation Claims:
 
 > The Vision Clarifier prompts the user to describe their concept. The system explains *why* semantic anchoring matters — preventing "AI decision intelligence system" from collapsing into "ML dashboard."
 
-![Vision Clarifier](screenshots/vision_classifier.png)
+![Vision Clarifier](screenshots/vision_classfier.png)
 
 ---
 
