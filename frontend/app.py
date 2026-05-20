@@ -12,6 +12,12 @@ import streamlit as st
 sys.path.append(str(Path(__file__).parent.parent))
 from backend.config import settings
 
+# Use streamlit secrets if configured, otherwise fall back to settings.api_base_url
+if "BACKEND_URL" in st.secrets:
+    BASE_URL = st.secrets["BACKEND_URL"].rstrip("/")
+else:
+    BASE_URL = settings.api_base_url.rstrip("/")
+
 st.set_page_config(
     page_title="AI Requirement Intelligence",
     page_icon="🧠",
@@ -40,7 +46,7 @@ with st.sidebar:
     def _health():
         try:
             r = httpx.get(
-                f"{settings.api_base_url}/health", timeout=3.0
+                f"{BASE_URL}/health", timeout=3.0
             )
             return r.json() if r.status_code == 200 else None
         except Exception:
@@ -50,7 +56,7 @@ with st.sidebar:
     def _ready():
         try:
             r = httpx.get(
-                f"{settings.api_base_url}/ready", timeout=3.0
+                f"{BASE_URL}/ready", timeout=3.0
             )
             return r.json() if r.status_code == 200 else None
         except Exception:
