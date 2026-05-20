@@ -46,7 +46,7 @@ with st.sidebar:
     def _health():
         try:
             r = httpx.get(
-                f"{BASE_URL}/health", timeout=3.0
+                f"{BASE_URL}/health", timeout=15.0
             )
             return r.json() if r.status_code == 200 else None
         except Exception:
@@ -56,7 +56,7 @@ with st.sidebar:
     def _ready():
         try:
             r = httpx.get(
-                f"{BASE_URL}/ready", timeout=3.0
+                f"{BASE_URL}/ready", timeout=15.0
             )
             return r.json() if r.status_code == 200 else None
         except Exception:

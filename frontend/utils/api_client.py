@@ -410,7 +410,7 @@ def ping_backend() -> tuple[bool, str]:
     Returns (is_available, message).
     """
     try:
-        with httpx.Client(timeout=3.0) as client:
+        with httpx.Client(timeout=15.0) as client:
             r = client.get(f"{BASE_URL}/health")
             if r.status_code == 200:
                 data = r.json()

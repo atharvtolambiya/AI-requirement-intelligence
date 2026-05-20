@@ -62,6 +62,17 @@ class Settings(BaseSettings):
     LOG_DIR: str = Field(default="./logs")
 
     # ─── Validators ───────────────────────────────────────────────
+    @field_validator("BACKEND_PORT", mode="before")
+    @classmethod
+    def validate_backend_port(cls, v: any) -> int:
+        import os
+        if "PORT" in os.environ:
+            try:
+                return int(os.environ["PORT"])
+            except ValueError:
+                pass
+        return v
+
     @field_validator("LLM_PROVIDER")
     @classmethod
     def validate_provider(cls, v: str) -> str:
