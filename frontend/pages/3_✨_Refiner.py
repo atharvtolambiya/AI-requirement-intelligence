@@ -9,11 +9,18 @@ Provides:
 5. RAG knowledge base stats
 """
 
+import streamlit as st
+
+# ─── Page Config ──────────────────────────────────────────────────
+st.set_page_config(
+    page_title="Refiner | AI Req Intel",
+    page_icon="✨",
+    layout="wide",
+)
+
 import sys
 import uuid
 from pathlib import Path
-
-import streamlit as st
 
 sys.path.append(str(Path(__file__).parent.parent.parent))
 
@@ -25,13 +32,6 @@ from frontend.utils.ui_components import (
     render_sidebar_status,
     render_hallucination_risk,
     render_production_badge,
-)
-
-# ─── Page Config ──────────────────────────────────────────────────
-st.set_page_config(
-    page_title="Refiner | AI Req Intel",
-    page_icon="✨",
-    layout="wide",
 )
 
 render_sidebar_status()

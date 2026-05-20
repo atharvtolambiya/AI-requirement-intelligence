@@ -9,10 +9,17 @@ Provides:
 5. RAG knowledge base status
 """
 
+import streamlit as st
+
+# ─── Page Config ──────────────────────────────────────────────────
+st.set_page_config(
+    page_title="History | AI Req Intel",
+    page_icon="📚",
+    layout="wide",
+)
+
 import sys
 from pathlib import Path
-
-import streamlit as st
 
 sys.path.append(str(Path(__file__).parent.parent.parent))
 
@@ -27,13 +34,6 @@ from frontend.utils.ui_components import (
     render_analytics_overview,
     render_dimension_scores,
     render_sidebar_status,
-)
-
-# ─── Page Config ──────────────────────────────────────────────────
-st.set_page_config(
-    page_title="History | AI Req Intel",
-    page_icon="📚",
-    layout="wide",
 )
 
 render_sidebar_status()
