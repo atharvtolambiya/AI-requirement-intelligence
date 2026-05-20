@@ -13,9 +13,12 @@ sys.path.append(str(Path(__file__).parent.parent))
 from backend.config import settings
 
 # Use streamlit secrets if configured, otherwise fall back to settings.api_base_url
-if "BACKEND_URL" in st.secrets:
-    BASE_URL = st.secrets["BACKEND_URL"].rstrip("/")
-else:
+try:
+    if "BACKEND_URL" in st.secrets:
+        BASE_URL = st.secrets["BACKEND_URL"].rstrip("/")
+    else:
+        BASE_URL = settings.api_base_url.rstrip("/")
+except (FileNotFoundError, KeyError):
     BASE_URL = settings.api_base_url.rstrip("/")
 
 st.set_page_config(
