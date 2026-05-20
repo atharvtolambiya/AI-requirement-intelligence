@@ -9,6 +9,13 @@ from pathlib import Path
 import httpx
 import streamlit as st
 
+st.set_page_config(
+    page_title="AI Requirement Intelligence",
+    page_icon="🧠",
+    layout="wide",
+    initial_sidebar_state="expanded",
+)
+
 sys.path.append(str(Path(__file__).parent.parent))
 from backend.config import settings
 
@@ -20,13 +27,6 @@ try:
         BASE_URL = settings.api_base_url.rstrip("/")
 except (FileNotFoundError, KeyError):
     BASE_URL = settings.api_base_url.rstrip("/")
-
-st.set_page_config(
-    page_title="AI Requirement Intelligence",
-    page_icon="🧠",
-    layout="wide",
-    initial_sidebar_state="expanded",
-)
 
 # ─── Sidebar ──────────────────────────────────────────────────────
 with st.sidebar:
